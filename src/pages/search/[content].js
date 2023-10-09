@@ -45,7 +45,7 @@ export default function SearchPage () {
                 <SearchBar />
                 {/* SEARCH RESULT */}
                 <div>
-                    <p className="text-4xl text-center font-bold">Search result for '<span className="underline underline-offset-8">{content}</span>':</p>
+                    <p className="text-4xl text-center font-bold">Search result for <span className="underline underline-offset-8">{content}</span>:</p>
                 </div>
                 {/* CARDS AREA */}
                 <div className="flex flex-wrap gap-8 mt-10 justify-center">
