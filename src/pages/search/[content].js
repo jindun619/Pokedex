@@ -4,8 +4,8 @@
 import Navbar from "@/components/Navbar"
 import SearchBar from "@/components/SearchBar"
 
-import Pokedex from 'pokedex-promise-v2';
-const P = new Pokedex();
+// import Pokedex from 'pokedex-promise-v2';
+// const P = new Pokedex();
 
 export default function SearchPage () {
     // const router = useRouter()
@@ -16,7 +16,7 @@ export default function SearchPage () {
     // speciesData.count = 1017
     // https://pokeapi.co/api/v2/pokemon-species/1
 
-    useEffect(() => {
+    // useEffect(() => {
         // for(let i = 0; i < 1017; i++) {
         //     P.getPokemonSpeciesByName(i)
         //     .then((response) => {
@@ -31,7 +31,7 @@ export default function SearchPage () {
         //         console.log('There was an ERROR: ', error);
         //     });
         // }
-    }, [])
+    // }, [])
 
     return (
         <div>
