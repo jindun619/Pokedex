@@ -1,4 +1,4 @@
-// import { useRouter } from "next/router"
+import { useRouter } from "next/router"
 // import { useState, useEffect } from "react";
 
 import Navbar from "@/components/Navbar"
@@ -8,8 +8,8 @@ import SearchBar from "@/components/SearchBar"
 // const P = new Pokedex();
 
 export default function SearchPage () {
-    // const router = useRouter()
-    // const { content } = router.query
+    const router = useRouter()
+    const { content } = router.query
 
     // const [korNames, setKorNames] = useState([])
     // const [items, setItems] = useState([])
