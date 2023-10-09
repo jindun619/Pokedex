@@ -1,5 +1,5 @@
-import { useRouter } from "next/router"
-import { useState, useEffect } from "react";
+// import { useRouter } from "next/router"
+// import { useState, useEffect } from "react";
 
 import Navbar from "@/components/Navbar"
 import SearchBar from "@/components/SearchBar"
@@ -8,11 +8,11 @@ import Pokedex from 'pokedex-promise-v2';
 const P = new Pokedex();
 
 export default function SearchPage () {
-    const router = useRouter()
-    const { content } = router.query
+    // const router = useRouter()
+    // const { content } = router.query
 
-    const [korNames, setKorNames] = useState([])
-    const [items, setItems] = useState([])
+    // const [korNames, setKorNames] = useState([])
+    // const [items, setItems] = useState([])
     // speciesData.count = 1017
     // https://pokeapi.co/api/v2/pokemon-species/1
 
@@ -43,16 +43,6 @@ export default function SearchPage () {
                 <SearchBar />
                 {/* CARDS AREA */}
                 <div className="flex flex-wrap gap-8 mt-10 justify-center">
-                    {/* {items} */}
-                    {/* {itemLists.map((v, i) => {
-                        return <PokeCard id={v} key={i} />;
-                    })} */}
-                    {
-                        korNames.map((node) => (
-                            <h1>{node}</h1>
-                        ))
-                    }
-                    <h1>{korNames.length}</h1>
                 </div>
             </div>
         </div>
