@@ -1,12 +1,14 @@
 import React from "react";
 
+import Link from 'next/link'
+
 import { translateType } from "../utils/translate";
 import { typeIcons } from "../icons/typeIcons";
 
 export default function TypeBtn ({ name, color }) {
     return (
-        // <a href={`/proxy/3000/type/${name}`}>
-        <a href={`/type/${name}`}>
+        // <a href={`/type/${name}`}>
+        <Link href={`/type/${name}`}>
             <span className={`inline-block text-center font-bold border w-24 mr-1 p-1 rounded-lg`} style={{
                 backgroundColor: color,
                 color: '#FFF'
@@ -16,6 +18,7 @@ export default function TypeBtn ({ name, color }) {
                 </div>
                 {translateType(name)}
             </span>
-        </a>
+        </Link>
+        // </a>
     )
 }

@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
 import PokeModal from "./PokeModal";
 import TypeBtn from "./TypeBtn";
 

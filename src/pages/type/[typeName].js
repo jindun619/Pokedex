@@ -12,7 +12,7 @@ import { typeIcons } from "../../icons/typeIcons"
 import Pokedex from 'pokedex-promise-v2';
 const P = new Pokedex();
 
-export default function TypeName() {
+export default function TypePage() {
     const router = useRouter()
     const { typeName } = router.query
     
