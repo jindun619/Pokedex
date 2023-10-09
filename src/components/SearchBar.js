@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 
-export default function SearchBar () {
+export default function SearchBar ({ value }) {
     const router = useRouter()
 
     const handleKeyDown = (e) => {
