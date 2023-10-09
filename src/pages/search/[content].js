@@ -17,20 +17,20 @@ export default function SearchPage () {
     // https://pokeapi.co/api/v2/pokemon-species/1
 
     useEffect(() => {
-        for(let i = 0; i < 1017; i++) {
-            P.getPokemonSpeciesByName(i)
-            .then((response) => {
-                const name = response.names.find((node) => {
-                    return node.language.name === 'ko'
-                }).name
+        // for(let i = 0; i < 1017; i++) {
+        //     P.getPokemonSpeciesByName(i)
+        //     .then((response) => {
+        //         const name = response.names.find((node) => {
+        //             return node.language.name === 'ko'
+        //         }).name
 
-                setKorNames(korNames.concat(name))
-                console.log(name)
-            })
-            .catch((error) => {
-                console.log('There was an ERROR: ', error);
-            });
-        }
+        //         setKorNames(korNames.concat(name))
+        //         console.log(name)
+        //     })
+        //     .catch((error) => {
+        //         console.log('There was an ERROR: ', error);
+        //     });
+        // }
     }, [])
 
     return (
