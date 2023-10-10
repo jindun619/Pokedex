@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 
+import axios from "axios"
+
 import PokeModal from "./PokeModal";
 import TypeBtn from "./TypeBtn";
 
@@ -12,6 +14,7 @@ const P = new Pokedex();
 export default function PokeCard({ id }) {  //id or name(english)
     const [pokeData, setPokeData] = useState([])
     const [speciesData, setSpeciesData] = useState([])
+    const [eggData, setEggData] = useState([])
     
     useEffect(() => {
         P.getPokemonSpeciesByName(id)
@@ -31,9 +34,21 @@ export default function PokeCard({ id }) {  //id or name(english)
         .catch((error) => {
             console.log('There was an ERROR: ', error);
         })
+
+        if(speciesData.length !== 0) {
+            speciesData.egg_groups.map((v, i) => {
+                axios.get(v.url)
+                .then((res) => {
+                    const eggName = res.data.names.find((v, i) => {
+                        return v.language.name === 'ko'
+                    }).name
+                    setEggData(cur => [...cur, eggName])
+                })
+            })
+        }
     }, [speciesData, id])
 
-    if(pokeData.length !== 0 && speciesData.length !== 0) {
+    if(pokeData.length !== 0 && speciesData.length !== 0 && eggData.length !== 0) {
         const name = speciesData.names.find((node) => {
             return node.language.name === 'ko'
         }).name
@@ -59,21 +74,10 @@ export default function PokeCard({ id }) {  //id or name(english)
                     </div>
                     
                 </div>
-                <PokeModal modalId={id} pokeData={pokeData} speciesData={speciesData} />
+                <PokeModal key={id} modalId={id} pokeData={pokeData} speciesData={speciesData} eggData={eggData} />
             </div>
         )
     } else {
-        // return (
-        //     <div className="card w-72 bg-base-100 shadow-xl">
-        //         <figure><img src={"https://via.placeholder.com/150/"} alt={"placeholder"} className="h-20" /></figure>
-        //         <div className="card-body p-3">
-        //             <h2 className="card-title justify-center">Loading..</h2>
-        //             <div className="card-actions justify-center mt-5">
-        //                 <button className="btn bg-base-300 hover:bg-[#94a3b8]">자세히 보기</button>
-        //             </div>
-        //         </div>
-        //     </div>
-        // )
         return false
     }
 }

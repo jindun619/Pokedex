@@ -3,8 +3,9 @@ import React from "react";
 import TypeBtn from "./TypeBtn";
 
 import { convertTypeColor } from "../utils/convert";
+import { translateStat } from "@/utils/translate";
 
-export default function PokeModal({ modalId, pokeData, speciesData }) {
+export default function PokeModal({ modalId, pokeData, speciesData, eggData }) {
     const name = speciesData.names.find((node) => {
         return node.language.name === 'ko'
     }).name
@@ -42,16 +43,39 @@ export default function PokeModal({ modalId, pokeData, speciesData }) {
                 </div>
                 {/* FLAVOR TEXT */}
                 <p className="mb-2 font-bold text-base">{flavorText}</p>
+                {/* SPECS */}
+                <div className="text-center">
+                    <div className="stats shadow mb-2">
+                        <div className="stat place-items-center">
+                            <div className="stat-title">신장</div>
+                            <div className="stat-value">{`${height.toFixed(1)}m`}</div>
+                        </div>
+                        <div className="stat place-items-center">
+                            <div className="stat-title">체중</div>
+                            <div className="stat-value">{`${weight.toFixed(1)}kg`}</div>
+                        </div>
+                    </div>
+                </div>
                 {/* STATS */}
-                <div className="stats shadow">
-                    <div className="stat place-items-center">
-                        <div className="stat-title">신장</div>
-                        <div className="stat-value">{`${height.toFixed(1)}m`}</div>
-                    </div>
-                    <div className="stat place-items-center">
-                        <div className="stat-title">체중</div>
-                        <div className="stat-value">{`${weight.toFixed(1)}kg`}</div>
-                    </div>
+                <div className="autoflow-x-auto">
+                    <table className="table table-lg table-zebra">
+                        <thead>
+                            <tr>
+                                <th>스탯</th>
+                                <th>수치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                pokeData.stats.map((v, i) => (
+                                    <tr key={i}>
+                                        <td>{translateStat(v.stat.name)}</td>
+                                        <td>{v.base_stat}</td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
                 </div>
                 <div className="modal-action">
                 <form method="dialog">

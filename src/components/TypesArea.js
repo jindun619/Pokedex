@@ -24,8 +24,8 @@ export default function TypesArea() {
         'dragon',
         'dark',
         'fairy',
-        'unknown',
-        'shadow'
+        // 'unknown',
+        // 'shadow'
     ]
 
     const typesObj = types.map((node) => {
