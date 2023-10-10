@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import PokeModal from "./PokeModal";
 import TypeBtn from "./TypeBtn";
@@ -33,10 +32,6 @@ export default function PokeCard({ id }) {  //id or name(english)
             console.log('There was an ERROR: ', error);
         })
     }, [speciesData, id])
-
-    useEffect(() => {
-        console.log(speciesData)
-    }, [speciesData])
 
     if(pokeData.length !== 0 && speciesData.length !== 0) {
         const name = speciesData.names.find((node) => {

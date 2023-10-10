@@ -15,10 +15,6 @@ export default function IndexPage () {
     const [curCount, setCurCount] = useState(0)
 
     useEffect(() => {
-        console.log(itemLists);
-      }, [itemLists]);
-
-    useEffect(() => {
         if(isLoaded) {
             setCurCount(curCount => curCount+10)
             let Items = Array(10).fill().map((v, i) => curCount + i + 1)
@@ -69,7 +65,7 @@ export default function IndexPage () {
                     })}
                 </div>
             </div>
-            <div ref={setTarget}>target</div>
+            <div ref={setTarget} className="h-1"></div>
         </div>
     );
 }

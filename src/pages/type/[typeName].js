@@ -25,16 +25,11 @@ export default function TypePage() {
         P.getTypeByName(typeName)
         .then((response) => {
             setTypeData(response)
-            console.log(response)
         })
         .catch((error) => {
             console.log('There was an ERROR: ', error);
         });
     }, [typeName])
-
-    useEffect(() => {
-        console.log(items)
-    }, [items])
 
     useEffect(() => {
         if(typeData.length !== 0) {
@@ -61,7 +56,7 @@ export default function TypePage() {
                         color: '#FFF'
                     }}>
                         <div className="ml-3 py-3 text-center">
-                            <div className="w-12 h-12 mr-4 inline-block">
+                            <div className="w-12 h-12 inline-block">
                                 {typeIcons[typeName]()}
                             </div>
                             {name}
