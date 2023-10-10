@@ -68,16 +68,17 @@ export default function PokeCard({ id }) {  //id or name(english)
             </div>
         )
     } else {
-        return (
-            <div className="card w-72 bg-base-100 shadow-xl">
-                <figure><img src={"https://via.placeholder.com/150/"} alt={"placeholder"} className="h-20" /></figure>
-                <div className="card-body p-3">
-                    <h2 className="card-title justify-center">Loading..</h2>
-                    <div className="card-actions justify-center mt-5">
-                        <button className="btn bg-base-300 hover:bg-[#94a3b8]">자세히 보기</button>
-                    </div>
-                </div>
-            </div>
-        )
+        // return (
+        //     <div className="card w-72 bg-base-100 shadow-xl">
+        //         <figure><img src={"https://via.placeholder.com/150/"} alt={"placeholder"} className="h-20" /></figure>
+        //         <div className="card-body p-3">
+        //             <h2 className="card-title justify-center">Loading..</h2>
+        //             <div className="card-actions justify-center mt-5">
+        //                 <button className="btn bg-base-300 hover:bg-[#94a3b8]">자세히 보기</button>
+        //             </div>
+        //         </div>
+        //     </div>
+        // )
+        return false
     }
 }
