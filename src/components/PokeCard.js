@@ -14,27 +14,29 @@ export default function PokeCard({ id }) {  //id or name(english)
     const [pokeData, setPokeData] = useState([])
     const [speciesData, setSpeciesData] = useState([])
     
-    useEffect(()=>{
-        P.getPokemonByName(id)
+    useEffect(() => {
+        P.getPokemonSpeciesByName(id)
         .then((response) => {
-          setPokeData(response)
+            setSpeciesData(response)
         })
         .catch((error) => {
-          console.log('There was an ERROR: ', error);
-        });
+            console.log('There was an ERROR: ', error)
+        })
     }, [id])
 
     useEffect(() => {
-        if(pokeData.length !== 0) {
-                axios.get(pokeData.species.url)
-                .then((response) => {
-                    setSpeciesData(response.data)
-                })
-                .catch((error) => {
-                    console.log('There was an ERROR: ', error)
-                })
-        }
-    }, [pokeData])
+        P.getPokemonByName(id)
+        .then((response) => {
+            setPokeData(response)
+        })
+        .catch((error) => {
+            console.log('There was an ERROR: ', error);
+        })
+    }, [speciesData, id])
+
+    useEffect(() => {
+        console.log(speciesData)
+    }, [speciesData])
 
     if(pokeData.length !== 0 && speciesData.length !== 0) {
         const name = speciesData.names.find((node) => {
@@ -77,6 +79,5 @@ export default function PokeCard({ id }) {  //id or name(english)
                 </div>
             </div>
         )
-        // return false
     }
 }
