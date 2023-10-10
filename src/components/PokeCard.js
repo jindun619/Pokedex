@@ -72,7 +72,6 @@ export default function PokeCard({ id }) {  //id or name(english)
                     <div className="card-actions justify-center mt-5">
                         <button className="btn bg-base-300 hover:bg-[#94a3b8]" onClick={()=>document.getElementById(`modal_${id}`).showModal()}>자세히 보기</button>
                     </div>
-                    
                 </div>
                 <PokeModal key={id} modalId={id} pokeData={pokeData} speciesData={speciesData} eggData={eggData} />
             </div>
