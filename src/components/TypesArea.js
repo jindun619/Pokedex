@@ -36,7 +36,7 @@ export default function TypesArea() {
     })
 
     return (
-        <div className="flex flex-wrap ml-3 gap-3">
+        <div className="flex flex-wrap ml-3 gap-3 justify-center">
             {typesObj}
         </div>
     )
