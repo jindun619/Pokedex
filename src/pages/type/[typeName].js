@@ -25,7 +25,7 @@ export default function TypePage() {
 
     // FETCHING TYPE DATA
     useEffect(() => {
-        console.log(`new typeName: ${typeName}`)
+        //reset states on url change
         setCurCount(0)
         setItemLists([])
 
@@ -52,7 +52,7 @@ export default function TypePage() {
             setItemLists((itemLists) => itemLists.concat(Items));
             setIsLoaded(false);
         }
-    }, [isLoaded, curCount])
+    }, [isLoaded, curCount, stop, typeData])
 
     const getMoreItem = () => {
         setIsLoaded(true);
