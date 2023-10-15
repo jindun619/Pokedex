@@ -11,10 +11,11 @@ import { convertTypeColor } from "../utils/convert";
 import Pokedex from 'pokedex-promise-v2';
 const P = new Pokedex();
 
-export default function PokeCard({ id }) {  //id or name(english)
+export default function PokeCard({ id }) {
     const [pokeData, setPokeData] = useState([])
     const [speciesData, setSpeciesData] = useState([])
     const [eggData, setEggData] = useState([])
+    const [loading, setLoading] = useState(true)
     
     useEffect(() => {
         P.getPokemonSpeciesByName(id)
@@ -23,6 +24,7 @@ export default function PokeCard({ id }) {  //id or name(english)
         })
         .catch((error) => {
             console.log('There was an ERROR: ', error)
+            setLoading(false)
         })
     }, [id])
 
@@ -36,17 +38,26 @@ export default function PokeCard({ id }) {  //id or name(english)
         })
 
         if(speciesData.length !== 0) {
-            speciesData.egg_groups.map((v, i) => {
+            speciesData.egg_groups.map(v => {
                 axios.get(v.url)
                 .then((res) => {
                     const eggName = res.data.names.find((v, i) => {
                         return v.language.name === 'ko'
                     }).name
                     setEggData(cur => [...cur, eggName])
+                    setLoading(false)
                 })
             })
         }
     }, [speciesData, id])
+
+    if(loading) {
+        return(
+            <div className="card w-72 h-40 bg-base-100 shadow-xl flex justify-center items-center">
+                <span className="loading loading-spinner loading-lg"></span>
+            </div>
+        )
+    }
 
     if(pokeData.length !== 0 && speciesData.length !== 0 && eggData.length !== 0) {
         const name = speciesData.names.find((node) => {

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react";
 
-import Navbar from "@/components/Navbar"
 import SearchBar from "@/components/SearchBar"
 import PokeCard from "@/components/PokeCard";
 
@@ -38,7 +37,6 @@ export default function SearchPage () {
 
     return (
         <div>
-            <Navbar />
             {/* CONTENTS WRAPPER */}
             <div>
                 {/* SEARCH BAR */}

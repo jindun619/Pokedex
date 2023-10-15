@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import Navbar from "../../components/Navbar";
 import PokeCard from "../../components/PokeCard";
 
 import { convertTypeColor } from "../../utils/convert";
@@ -18,10 +17,18 @@ export default function TypePage() {
     
     const [typeData, setTypeData] = useState([])
 
-    const [items, setItems] = useState([])
+    const [target, setTarget] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [itemLists, setItemLists] = useState();
+    const [curCount, setCurCount] = useState()
+    const [stop, setStop] = useState(false)
 
     // FETCHING TYPE DATA
     useEffect(() => {
+        console.log(`new typeName: ${typeName}`)
+        setCurCount(0)
+        setItemLists([])
+
         P.getTypeByName(typeName)
         .then((response) => {
             setTypeData(response)
@@ -32,14 +39,43 @@ export default function TypePage() {
     }, [typeName])
 
     useEffect(() => {
-        if(typeData.length !== 0) {
-            const newItems = []
-            typeData.pokemon.forEach((v, i) => {
-                newItems.push(v.pokemon.name)
-            })
-            setItems(newItems)
+        if(!stop && isLoaded && typeData.length !== 0) {
+            setCurCount(curCount => curCount+10)
+            let Items = []
+            for(let i = curCount; i < curCount + 10; i++) {
+                if(typeData.pokemon[i] === undefined) {
+                    setStop(true)
+                    break
+                }
+                Items.push(typeData.pokemon[i].pokemon.name)
+            }
+            setItemLists((itemLists) => itemLists.concat(Items));
+            setIsLoaded(false);
         }
-    }, [typeData])
+    }, [isLoaded, curCount])
+
+    const getMoreItem = () => {
+        setIsLoaded(true);
+    };
+
+    useEffect(() => {
+        const onIntersect = async ([entry], observer) => {
+            if (entry.isIntersecting && !isLoaded) {
+                observer.unobserve(entry.target);
+                getMoreItem();
+                observer.observe(entry.target);
+            }
+        };
+
+        let observer;
+        if (target) {
+            observer = new IntersectionObserver(onIntersect, {
+            threshold: 0.4,
+            });
+            observer.observe(target);
+        }
+        return () => observer && observer.disconnect();
+    }, [target, isLoaded]);
 
     if(typeData.length !== 0) {
         const color = convertTypeColor(typeName)
@@ -47,7 +83,6 @@ export default function TypePage() {
 
         return (
             <div>
-                <Navbar />
                 {/* CONTENTS WRAPPER */}
                 <div>
                     {/* TYPE BANNER */}
@@ -65,12 +100,16 @@ export default function TypePage() {
                     {/* CARDS AREA */}
                     <div className="flex flex-wrap gap-8 mt-10 justify-center">
                         {
-                            items.map((v, i) => (
+                            // items.map((v, i) => (
+                            //     <PokeCard key={i} id={v} />
+                            // ))
+                            itemLists.map((v, i) => (
                                 <PokeCard key={i} id={v} />
                             ))
                         }
                     </div>
                 </div>
+                <div ref={setTarget} className="h-1"></div>
             </div>
         )
     }

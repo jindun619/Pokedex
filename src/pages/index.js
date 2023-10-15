@@ -2,7 +2,6 @@ import React from "react"
 
 import { useState, useEffect } from "react";
 
-import Navbar from "../components/Navbar";
 import PokeCard from '../components/PokeCard';
 import TypesArea from '../components/TypesArea';
 import SearchBar from "@/components/SearchBar";
@@ -26,8 +25,6 @@ export default function IndexPage () {
     const getMoreItem = () => {
         setIsLoaded(true);
     };
-
-    
     
     useEffect(() => {
         const onIntersect = async ([entry], observer) => {
@@ -50,7 +47,6 @@ export default function IndexPage () {
 
     return (
         <div>
-            <Navbar />
             {/* CONTENTS WRAPPER */}
             <div>
                 {/* SEARCH BAR */}
