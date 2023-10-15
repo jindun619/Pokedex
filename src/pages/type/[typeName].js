@@ -25,6 +25,11 @@ export default function TypePage() {
 
     // FETCHING TYPE DATA
     useEffect(() => {
+        //reset states on url change
+        setCurCount(0)
+        setItemLists([])
+        setTypeData([])
+
         P.getTypeByName(typeName)
         .then((response) => {
             setTypeData(response)
@@ -32,10 +37,6 @@ export default function TypePage() {
         .catch((error) => {
             console.log('There was an ERROR: ', error);
         });
-        
-        //reset states on url change
-        setCurCount(0)
-        setItemLists([])
     }, [typeName])
 
     useEffect(() => {
