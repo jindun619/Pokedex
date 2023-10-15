@@ -12,8 +12,8 @@ export default function SearchPage () {
     const { content } = router.query
 
     const [korNames, setKorNames] = useState([])
-    // speciesData.count = 1017
-    // https://pokeapi.co/api/v2/pokemon-species/1
+
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         for(let i = 1; i <= 1017; i++) {
@@ -33,7 +33,16 @@ export default function SearchPage () {
                 console.log('There was an ERROR: ', error);
             });
         }
+        setLoading(false)
     }, [])
+
+    const items = korNames.map(v => {
+        if(v.name.includes(content)) {
+            return (
+                <PokeCard key={v.id} id={v.id} />
+            )   
+        }
+    })
 
     return (
         <div>
@@ -47,15 +56,7 @@ export default function SearchPage () {
                 </div>
                 {/* CARDS AREA */}
                 <div className="flex flex-wrap gap-8 mt-10 justify-center">
-                    {
-                        korNames.map((v, i) => {
-                            if(v.name.includes(content)) {
-                                return (
-                                    <PokeCard key={v.id} id={v.id} />
-                                )   
-                            }
-                        })
-                    }
+                    {items}
                 </div>
             </div>
         </div>
