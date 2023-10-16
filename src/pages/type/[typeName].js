@@ -25,7 +25,7 @@ export default function TypePage() {
 
     // FETCHING TYPE DATA
     useEffect(() => {
-        //reset states on url change
+        //reset states when url changes
         setCurCount(0)
         setItemLists([])
         setTypeData([])
@@ -41,7 +41,6 @@ export default function TypePage() {
 
     useEffect(() => {
         if(!stop && isLoaded && typeData.length !== 0) {
-            setCurCount(curCount => curCount+10)
             let Items = []
             for(let i = curCount; i < curCount + 10; i++) {
                 if(typeData.pokemon[i] === undefined) {
@@ -50,6 +49,7 @@ export default function TypePage() {
                 }
                 Items.push(typeData.pokemon[i].pokemon.name)
             }
+            setCurCount(curCount => curCount+10)
             setItemLists((itemLists) => itemLists.concat(Items));
             setIsLoaded(false);
         }

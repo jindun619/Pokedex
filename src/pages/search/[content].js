@@ -13,9 +13,19 @@ export default function SearchPage () {
 
     const [korNames, setKorNames] = useState([])
 
-    const [loading, setLoading] = useState(true)
+    // INFINITE SCROLL STATES
+    const [target, setTarget] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [itemLists, setItemLists] = useState([]);
+    const [curCount, setCurCount] = useState(0)
+    const [stop, setStop] = useState(false)
 
     useEffect(() => {
+        //states reset when url changes
+        setItemLists([])
+        setCurCount(0)
+        setKorNames([])
+
         for(let i = 1; i <= 1017; i++) {
             P.getPokemonSpeciesByName(i)
             .then((response) => {
@@ -23,25 +33,66 @@ export default function SearchPage () {
                     return node.language.name === 'ko'
                 }).name
 
-                const obj = {
-                    id: i,
-                    name: name
+                if(name.includes(content)) {
+                    const obj = {
+                        id: i,
+                        name: name
+                    }
+                    setKorNames(current => [...current, obj])
                 }
-                setKorNames(current => [...current, obj])
             })
             .catch((error) => {
                 console.log('There was an ERROR: ', error);
             });
         }
-        setLoading(false)
-    }, [])
+    }, [content])
 
-    const items = korNames.map(v => {
-        if(v.name.includes(content)) {
-            return (
-                <PokeCard key={v.id} id={v.id} />
-            )   
+    useEffect(() => {
+        if(isLoaded && korNames.length !== 0 && !stop) {
+            setCurCount(curCount => curCount+10)
+            let Items = []
+            for(let i = curCount; i < curCount + 10; i++) {
+                if(korNames[i] === undefined) {
+                    setStop(true)
+                    break
+                }
+                Items.push({
+                    id: korNames[i].id,
+                    name: korNames[i].name
+                })
+            }
+            setItemLists((itemLists) => itemLists.concat(Items));
+            setIsLoaded(false);
         }
+    }, [isLoaded, curCount, korNames])
+
+    const getMoreItem = () => {
+        setIsLoaded(true);
+    };
+    
+    useEffect(() => {
+        const onIntersect = async ([entry], observer) => {
+            if (entry.isIntersecting && !isLoaded) {
+                observer.unobserve(entry.target);
+                getMoreItem();
+                observer.observe(entry.target);
+            }
+        };
+
+        let observer;
+        if (target) {
+            observer = new IntersectionObserver(onIntersect, {
+            threshold: 0.4,
+            });
+            observer.observe(target);
+        }
+        return () => observer && observer.disconnect();
+    }, [target, isLoaded]);
+
+    const items = itemLists.map(v => {
+        return (
+            <PokeCard key={v.id} id={v.id} />
+        )   
     })
 
     return (
@@ -59,6 +110,7 @@ export default function SearchPage () {
                     {items}
                 </div>
             </div>
+            <div ref={setTarget} className="h-1"></div>
         </div>
     )
 
