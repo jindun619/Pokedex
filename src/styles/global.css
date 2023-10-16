@@ -6,6 +6,10 @@ body {
     @apply bg-base-300 min-h-screen
 }
 
+.navbar {
+    transition: top 0.4s ease-in-out;
+}
+
 .typeIcons {
     @apply inline-block w-full h-full
 }
