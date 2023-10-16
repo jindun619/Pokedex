@@ -64,7 +64,7 @@ export default function SearchPage () {
             setItemLists((itemLists) => itemLists.concat(Items));
             setIsLoaded(false);
         }
-    }, [isLoaded, curCount, korNames])
+    }, [isLoaded, curCount, korNames, stop])
 
     const getMoreItem = () => {
         setIsLoaded(true);
